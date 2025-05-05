@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.util.Set;
+
 public record ProdutoRequestDTO(
         @NotBlank(message = "Campo requerido!")
         @Size(min = 3, max = 100, message = "O nome deve ter de 3 a 100 caracteres")
@@ -18,8 +20,11 @@ public record ProdutoRequestDTO(
         @Positive(message = "O preço deve ser um valor positivo maior que zero")
         Double valor,
 
-        @NotNull(message = "Campo requerido")
-        CategoriaDTO categoria)
+        @NotNull(message = "Categoria requerido")
+        CategoriaDTO categoria,
+
+        @NotNull(message = "Loja requerido")
+        Set<LojaDTO> lojas)
 {
 
 }
