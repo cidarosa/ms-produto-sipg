@@ -2,7 +2,9 @@ package br.com.fiap.ms_produto.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_produto")
@@ -20,6 +22,12 @@ public class Produto {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_produto_loja", // tabela associativa
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "loja_id"))
+    private Set<Loja> lojas = new HashSet<>();
+
     public Produto() {
     }
 
@@ -30,6 +38,14 @@ public class Produto {
         this.descricao = descricao;
         this.valor = valor;
         this.categoria = categoria;
+    }
+
+    public Set<Loja> getLojas() {
+        return lojas;
+    }
+
+    public void setLojas(Set<Loja> lojas) {
+        this.lojas = lojas;
     }
 
     public Categoria getCategoria() {
